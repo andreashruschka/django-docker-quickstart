@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "test_app",
+    "json_placeholder",
+    "celery"
 ]
 
 MIDDLEWARE = [

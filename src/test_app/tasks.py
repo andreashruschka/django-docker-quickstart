@@ -1,4 +1,4 @@
-from project_name.celery import app
+from ..project_name.celery import app
 
 
 @app.task(bind=True, name="test_periodic_task")
