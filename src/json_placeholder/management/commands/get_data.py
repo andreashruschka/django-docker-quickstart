@@ -1,11 +1,36 @@
 from django.core.management.base import BaseCommand
+from src.json_placeholder.models import Post, Comment
+import requests
 
 
 class Command(BaseCommand):
     help = "Gets and saves posts and comments from https://jsonplaceholder.typicode.com"
 
     def add_arguments(self, parser):
-        parser.add_argument("is_test", type=bool)
+        parser.add_argument("--is_test", action='store_true', help="Run in test mode (data will not be saved in "
+                                                                   "database)")
 
     def handle(self, *args, **options):
-        print("TODO")
+        api_url = 'https://jsonplaceholder.typicode.com/posts'
+        is_test = options.get('is_test', True)
+        try:
+            response = requests.get(api_url)
+            response.raise_for_status()
+            data = response.json()
+
+            if is_test:
+                self.stdout.write(
+                    self.style.SUCCESS("{} Post objects successfully fetched during testing, no data saved in db".format(data.count)))
+            else:
+                saved_posts = 0
+                for item in data:
+                    Post.objects.create(
+                        userId=item["userId"],
+                        pk=item["id"],
+                        title=item["title"],
+                        body=item["body"],
+                    )
+                    saved_posts = +1
+                self.stdout.write(self.style.SUCCESS("{} Post objects successfully fetch and saved".format(saved_posts)))
+        except requests.RequestException as e:
+            self.stdout.write(self.style.Error("Error fetching Post objects: {} ".format(e)))

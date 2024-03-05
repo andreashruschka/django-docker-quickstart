@@ -50,6 +50,14 @@ migrate:
 	docker exec -it $(BACKEND_APP_NAME) $(SHELL) "-c" \
 	"python manage.py migrate"
 
+get-data-test:
+	docker exec -it $(BACKEND_APP_NAME) sh "-c" \
+	"python manage.py get_data --is_test"
+
+get-data-test:
+	docker exec -it $(BACKEND_APP_NAME) sh "-c" \
+	"python manage.py get_data"
+
 build-dev:
 	DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker-compose.yml up --build -d
 
