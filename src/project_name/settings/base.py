@@ -81,7 +81,7 @@ DATABASES = {
         "NAME": os_getenv("POSTGRES_DB", "postgres"),
         "USER": os_getenv("POSTGRES_USER", "postgres"),
         "PASSWORD": os_getenv("POSTGRES_PASSWORD", "postgres"),
-        "HOST": os_getenv("POSTGRES_HOST", "db"),
+        "HOST": os_getenv("POSTGRES_HOST", "project_name-db"),
         "PORT": os_getenv("POSTGRES_PORT", "5432"),
     }
 }
