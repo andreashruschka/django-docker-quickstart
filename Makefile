@@ -21,6 +21,10 @@ make stop-dev       	Stop dev environment
 make stop-prod      	Stop prod environment
 make build-prod     	Build and run prod environment
 make all            	Show help
+make get-posts-test     make a test fetch for the post data
+make get-post           fetch and save the post data
+make get-comments-test  make a test fetch for the comment data
+make get-comments       fetch and save the comment data
 
 endef
 
@@ -50,13 +54,21 @@ migrate:
 	docker exec -it $(BACKEND_APP_NAME) $(SHELL) "-c" \
 	"python manage.py migrate"
 
-get-data-test:
+get-posts-test:
 	docker exec -it $(BACKEND_APP_NAME) sh "-c" \
-	"python manage.py get_data --is_test"
+	"python manage.py get_post_data --is_test"
 
-get-data-test:
+get-posts:
 	docker exec -it $(BACKEND_APP_NAME) sh "-c" \
-	"python manage.py get_data"
+	"python manage.py get_post_data"
+
+get-comments-test:
+	docker exec -it $(BACKEND_APP_NAME) sh "-c" \
+	"python manage.py get_comment_data --is_test"
+
+get-comments:
+	docker exec -it $(BACKEND_APP_NAME) sh "-c" \
+	"python manage.py get_comment_data"
 
 build-dev:
 	DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker-compose.yml up --build -d

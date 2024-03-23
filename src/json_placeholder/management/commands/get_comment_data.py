@@ -1,17 +1,17 @@
 from django.core.management.base import BaseCommand
-from src.json_placeholder.models import Post, Comment
+from ...models import Comment
 import requests
 
 
 class Command(BaseCommand):
-    help = "Gets and saves posts and comments from https://jsonplaceholder.typicode.com"
+    help = "Gets and saves comments from https://jsonplaceholder.typicode.com"
 
     def add_arguments(self, parser):
         parser.add_argument("--is_test", action='store_true', help="Run in test mode (data will not be saved in "
                                                                    "database)")
 
     def handle(self, *args, **options):
-        api_url = 'https://jsonplaceholder.typicode.com/posts'
+        api_url = 'https://jsonplaceholder.typicode.com/comments'
         is_test = options.get('is_test', True)
         try:
             response = requests.get(api_url)
@@ -20,17 +20,18 @@ class Command(BaseCommand):
 
             if is_test:
                 self.stdout.write(
-                    self.style.SUCCESS("{} Post objects successfully fetched during testing, no data saved in db".format(data.count)))
+                    self.style.SUCCESS("{} Comments successfully fetched during testing, no data saved in db".format(len(data))))
             else:
-                saved_posts = 0
+                saved_comments = 0
                 for item in data:
-                    Post.objects.create(
-                        userId=item["userId"],
-                        pk=item["id"],
-                        title=item["title"],
+                    Comment.objects.create(
+                        postId_id=item["postId"],
+                        name=item["name"],
+                        email=item["email"],
                         body=item["body"],
                     )
-                    saved_posts = +1
-                self.stdout.write(self.style.SUCCESS("{} Post objects successfully fetch and saved".format(saved_posts)))
+                    saved_comments = saved_comments + 1
+                self.stdout.write(self.style.SUCCESS("{} Comments successfully fetch and saved".format(saved_comments)))
         except requests.RequestException as e:
             self.stdout.write(self.style.Error("Error fetching Post objects: {} ".format(e)))
+

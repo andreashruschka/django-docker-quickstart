@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "test_app",
     "json_placeholder",
-    "celery"
+    "celery",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
