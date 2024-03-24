@@ -1,4 +1,5 @@
-# Django Docker Quickstart
+# General
+This project is based on the [Django Docker Quickstart Project](https://github.com/godd0t/django-docker-quickstart)
 
 This quickstart provides an easy way to initiate a Django project using Docker. It comes with pre-configured services including PostgreSQL, Redis, Celery (worker and beat), Nginx, and Traefik, ready to run a Django web application. Additionally, it provides a few handy shortcuts for easier development.
 
@@ -34,7 +35,7 @@ This quickstart provides an easy way to initiate a Django project using Docker. 
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/godd0t/django-docker-quickstart.git
+    git clone https://github.com/andreashruschka/django-docker-quickstart
     ```
 
 2. **Change directory into the project:**
@@ -69,9 +70,9 @@ This quickstart provides an easy way to initiate a Django project using Docker. 
     source venv/bin/activate
     ```
 
-3. **(Optional) Install the development requirements specific to your IDE for enhanced functionality and support.**
+3. **Install the requirements**
     ```bash
-    pip install -r src/requirements-dev.txt
+    pip install -r src/requirements.txt
     ```
 
 4. **Build the image and run the container:**  
@@ -155,5 +156,25 @@ This project includes several shortcuts to streamline the development process:
 - **Build and run prod environment:**
     ```bash
     make build-prod
+    ```
+  
+- **Make Test run for getting the Post items:**
+    ```bash
+    make get-posts-test
+    ```
+  
+- **Get and save 100 Post items:**
+    ```bash
+    make get-posts
+    ```
+  
+- **Make Test run for getting the Comment items:**
+    ```bash
+    make get-comments-test
+    ```
+  
+- **Get and save 500 Comment items:**
+    ```bash
+    make get-comments
     ```
 ---

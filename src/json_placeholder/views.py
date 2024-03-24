@@ -25,7 +25,7 @@ class LoginView(APIView):
 @api_view(["Get"])
 def api_overview(request):
     api_urls = {
-        'login': 'login/',
+        'generate-token': 'generate-token/',
 
         # Posts
         'all Posts': '/post/all/',
