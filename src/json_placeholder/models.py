@@ -12,7 +12,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    postId = models.ForeignKey(Post, on_delete=models.CASCADE)
+    postId = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
     body = models.TextField(max_length=5000)

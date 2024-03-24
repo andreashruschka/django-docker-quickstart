@@ -14,7 +14,6 @@ DEBUG = os_getenv("DEBUG", "true").lower() in ["True", "true", "1", "yes", "y"]
 
 ALLOWED_HOSTS = os_getenv("ALLOWED_HOSTS", "localhost").split(",")
 
-
 if DEBUG:
     CORS_ORIGIN_ALLOW_ALL = True
 else:
@@ -35,10 +34,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
-    "test_app",
     "json_placeholder",
     "celery",
-    "rest_framework"
+    "rest_framework",
+    "rest_framework.authtoken"
 ]
 
 MIDDLEWARE = [
@@ -148,3 +147,9 @@ REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}"
 
 CELERY_BROKER_URL = REDIS_URL
 CELERY_RESULT_BACKEND = REDIS_URL
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+}
